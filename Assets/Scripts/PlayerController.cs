@@ -10,7 +10,7 @@ namespace TT
         private Inputs _inputAction;
         private Vector2 _moveVector = Vector2.zero;
          private Rigidbody _rigidbody;
-         private Rigidbody RB => _rigidbody ??= GetComponent<Rigidbody>();
+         private Rigidbody RB => _rigidbody ??= GetComponentInChildren<Rigidbody>();
 
         private void OnEnable()
         {
@@ -25,7 +25,8 @@ namespace TT
 
         private void OnMove(InputAction.CallbackContext context)
         {
-            _moveVector = context.ReadValue<Vector2>();
+            var imoveVector = _inputAction.Move.WASD.ReadValue<Vector2>() * 1f;
+            RB.velocity = new Vector3(imoveVector.x * 7f, 0f,imoveVector.y * 10f);
         }
 
         private void OnJump(InputAction.CallbackContext context)
