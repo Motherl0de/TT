@@ -1,5 +1,6 @@
 using System;
 using TT.Input;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,9 @@ namespace TT
     public sealed class PlayerController : MonoBehaviour
     {
         private Inputs _inputAction;
+        private float _speed = 3f;
         private Vector2 _moveVector = Vector2.zero;
-         private Rigidbody _rigidbody;
+        private Rigidbody _rigidbody;
          private Rigidbody RB => _rigidbody ??= GetComponentInChildren<Rigidbody>();
 
         private void OnEnable()
@@ -20,24 +22,38 @@ namespace TT
         private void Awake()
         {
             _inputAction = new Inputs();
-            _inputAction.Move.WASD.performed += OnMove;
+            _inputAction.Move.Jump.performed += OnJump;
+            _inputAction.Move.Run.performed += OnRun;
+            _inputAction.Move.Run.canceled += OnFinishRun;
         }
 
-        private void OnMove(InputAction.CallbackContext context)
+        private void OnFinishRun(InputAction.CallbackContext obj)
         {
-            var imoveVector = _inputAction.Move.WASD.ReadValue<Vector2>() * 1f;
-            RB.velocity = new Vector3(imoveVector.x * 7f, 0f,imoveVector.y * 10f);
+            _speed = 3f;
+        }
+
+        private void OnRun(InputAction.CallbackContext obj)
+        {
+            _speed = 9f;
+        }
+
+        private void Update()
+        {
+            _moveVector = _inputAction.Move.WASD.ReadValue<Vector2>() * _speed;
+            RB.AddForce(new Vector3(_moveVector.x, 0f,_moveVector.y));
         }
 
         private void OnJump(InputAction.CallbackContext context)
         {
-
+            RB.velocity = new Vector3(0f, 5f, 0f);
         }
 
         private void OnDisable()
         {
             _inputAction.Disable();
-            _inputAction.Move.WASD.performed -= OnMove;
+            _inputAction.Move.Jump.performed -= OnJump;
+            _inputAction.Move.Run.performed -= OnRun;
+            _inputAction.Move.Run.canceled -= OnFinishRun;
         }
     }
 }

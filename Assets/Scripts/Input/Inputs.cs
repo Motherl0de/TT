@@ -46,6 +46,15 @@ namespace TT.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""bab5be19-68d0-4f87-aa26-ec80386af8a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ namespace TT.Input
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc467ce1-d94e-47d5-8571-3a46bd099ff7"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace TT.Input
             m_Move = asset.FindActionMap("Move", throwIfNotFound: true);
             m_Move_WASD = m_Move.FindAction("WASD", throwIfNotFound: true);
             m_Move_Jump = m_Move.FindAction("Jump", throwIfNotFound: true);
+            m_Move_Run = m_Move.FindAction("Run", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -187,12 +208,14 @@ namespace TT.Input
         private List<IMoveActions> m_MoveActionsCallbackInterfaces = new List<IMoveActions>();
         private readonly InputAction m_Move_WASD;
         private readonly InputAction m_Move_Jump;
+        private readonly InputAction m_Move_Run;
         public struct MoveActions
         {
             private @Inputs m_Wrapper;
             public MoveActions(@Inputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @WASD => m_Wrapper.m_Move_WASD;
             public InputAction @Jump => m_Wrapper.m_Move_Jump;
+            public InputAction @Run => m_Wrapper.m_Move_Run;
             public InputActionMap Get() { return m_Wrapper.m_Move; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -208,6 +231,9 @@ namespace TT.Input
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
 
             private void UnregisterCallbacks(IMoveActions instance)
@@ -218,6 +244,9 @@ namespace TT.Input
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Run.started -= instance.OnRun;
+                @Run.performed -= instance.OnRun;
+                @Run.canceled -= instance.OnRun;
             }
 
             public void RemoveCallbacks(IMoveActions instance)
@@ -239,6 +268,7 @@ namespace TT.Input
         {
             void OnWASD(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnRun(InputAction.CallbackContext context);
         }
     }
 }
