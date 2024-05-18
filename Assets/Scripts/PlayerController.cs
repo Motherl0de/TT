@@ -9,8 +9,9 @@ namespace TT
     public sealed class PlayerController : MonoBehaviour
     {
         private Inputs _inputAction;
+        private bool _isGrounded;
         private float _speed = 3f;
-        private Vector2 _moveVector = Vector2.zero;
+        private Vector2 _moveVector;
         private Rigidbody _rigidbody;
          private Rigidbody RB => _rigidbody ??= GetComponentInChildren<Rigidbody>();
 
@@ -40,7 +41,9 @@ namespace TT
         private void Update()
         {
             _moveVector = _inputAction.Move.WASD.ReadValue<Vector2>() * _speed;
-            RB.AddForce(new Vector3(_moveVector.x, 0f,_moveVector.y));
+            var direction = new Vector3(_moveVector.x, 0f, _moveVector.y);
+            RB.AddForce(direction);
+            RB.MoveRotation(Quaternion.LookRotation(direction));
         }
 
         private void OnJump(InputAction.CallbackContext context)
