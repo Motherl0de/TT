@@ -7,9 +7,9 @@ namespace TT
 {
     public sealed class StartGame : MonoBehaviour
     {
-        public async UniTaskVoid StartScene()
+        public void StartScene()
         {
-            await SceneManager.LoadSceneAsync("SampleScene");
+            SceneManager.LoadScene("Scenes/SampleScene");
         }
     }
 }

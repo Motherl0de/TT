@@ -136,6 +136,74 @@ namespace TT.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Inventory"",
+            ""id"": ""e1cbd733-e52b-414c-9bfc-2e6bf50c8dd8"",
+            ""actions"": [
+                {
+                    ""name"": ""Item1"",
+                    ""type"": ""Button"",
+                    ""id"": ""825fd1a7-e313-4057-99f9-f48c28de1f26"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Item2"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ed1f962-f98a-4d8f-a959-3b9d0d02c63a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Item3"",
+                    ""type"": ""Button"",
+                    ""id"": ""43e54e65-61ec-4e73-b957-cc493c38ab6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a48a26ad-8af0-4366-ad3c-e200ee319429"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Item1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca26b89a-3c8d-4487-8e79-bf48e10a86af"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Item2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f26207db-6ce9-49a3-8ea3-b52a221d9b5d"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Item3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -145,6 +213,11 @@ namespace TT.Input
             m_Move_WASD = m_Move.FindAction("WASD", throwIfNotFound: true);
             m_Move_Jump = m_Move.FindAction("Jump", throwIfNotFound: true);
             m_Move_Run = m_Move.FindAction("Run", throwIfNotFound: true);
+            // Inventory
+            m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
+            m_Inventory_Item1 = m_Inventory.FindAction("Item1", throwIfNotFound: true);
+            m_Inventory_Item2 = m_Inventory.FindAction("Item2", throwIfNotFound: true);
+            m_Inventory_Item3 = m_Inventory.FindAction("Item3", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -264,11 +337,79 @@ namespace TT.Input
             }
         }
         public MoveActions @Move => new MoveActions(this);
+
+        // Inventory
+        private readonly InputActionMap m_Inventory;
+        private List<IInventoryActions> m_InventoryActionsCallbackInterfaces = new List<IInventoryActions>();
+        private readonly InputAction m_Inventory_Item1;
+        private readonly InputAction m_Inventory_Item2;
+        private readonly InputAction m_Inventory_Item3;
+        public struct InventoryActions
+        {
+            private @Inputs m_Wrapper;
+            public InventoryActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Item1 => m_Wrapper.m_Inventory_Item1;
+            public InputAction @Item2 => m_Wrapper.m_Inventory_Item2;
+            public InputAction @Item3 => m_Wrapper.m_Inventory_Item3;
+            public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
+            public void AddCallbacks(IInventoryActions instance)
+            {
+                if (instance == null || m_Wrapper.m_InventoryActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_InventoryActionsCallbackInterfaces.Add(instance);
+                @Item1.started += instance.OnItem1;
+                @Item1.performed += instance.OnItem1;
+                @Item1.canceled += instance.OnItem1;
+                @Item2.started += instance.OnItem2;
+                @Item2.performed += instance.OnItem2;
+                @Item2.canceled += instance.OnItem2;
+                @Item3.started += instance.OnItem3;
+                @Item3.performed += instance.OnItem3;
+                @Item3.canceled += instance.OnItem3;
+            }
+
+            private void UnregisterCallbacks(IInventoryActions instance)
+            {
+                @Item1.started -= instance.OnItem1;
+                @Item1.performed -= instance.OnItem1;
+                @Item1.canceled -= instance.OnItem1;
+                @Item2.started -= instance.OnItem2;
+                @Item2.performed -= instance.OnItem2;
+                @Item2.canceled -= instance.OnItem2;
+                @Item3.started -= instance.OnItem3;
+                @Item3.performed -= instance.OnItem3;
+                @Item3.canceled -= instance.OnItem3;
+            }
+
+            public void RemoveCallbacks(IInventoryActions instance)
+            {
+                if (m_Wrapper.m_InventoryActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IInventoryActions instance)
+            {
+                foreach (var item in m_Wrapper.m_InventoryActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_InventoryActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public InventoryActions @Inventory => new InventoryActions(this);
         public interface IMoveActions
         {
             void OnWASD(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnRun(InputAction.CallbackContext context);
+        }
+        public interface IInventoryActions
+        {
+            void OnItem1(InputAction.CallbackContext context);
+            void OnItem2(InputAction.CallbackContext context);
+            void OnItem3(InputAction.CallbackContext context);
         }
     }
 }
