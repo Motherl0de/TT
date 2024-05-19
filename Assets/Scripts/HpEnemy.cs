@@ -15,6 +15,7 @@ namespace TT
             _hpEnemy -= damage;
             if (_hpEnemy <= 0)
             {
+                _sliderHp.value = 0f;
                 Destroy(gameObject);
             }
         }

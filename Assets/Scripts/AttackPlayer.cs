@@ -1,3 +1,5 @@
+using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace TT
@@ -6,7 +8,12 @@ namespace TT
     {
         private HpEnemy _enemy;
 
-        private void OnCollisionEnter(Collision other)
+        private void Start()
+        {
+            _enemy = FindObjectOfType<HpEnemy>();
+        }
+
+        private void OnCollisionEnter([NotNull] Collision other)
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
