@@ -8,13 +8,13 @@ namespace TT
     public sealed class PlayerController : MonoBehaviour
     {
         private Inputs _inputAction;
-        private float _speed = 0.3f;
+        private float _speed = 0.1f;
         private Vector2 _moveVector;
         private Rigidbody _rigidbody;
         private Quaternion _currentRotation;
         private Vector3 _oldDirection = new Vector3();
-        [SerializeField] private float _walkSpeed = 2f;
-        [SerializeField] private float _runSpeed = 3f;
+        [SerializeField] private float _walkSpeed = 0.1f;
+        [SerializeField] private float _runSpeed = 1f;
 
         private Rigidbody RB => _rigidbody ??= GetComponentInChildren<Rigidbody>();
 
@@ -48,8 +48,8 @@ namespace TT
             var direction = new Vector3(_moveVector.x, 0f, _moveVector.y);
             _oldDirection = direction;
             transform.Translate(_oldDirection * _speed);
-            _currentRotation = Quaternion.LookRotation(_oldDirection, Vector3.up);
-            //_currentRotation = Quaternion.Lerp(_currentRotation, Quaternion.LookRotation(_oldDirection), Time.fixedDeltaTime * _speed);
+            var mouseX = UnityEngine.Input.GetAxis("Mouse X") * _runSpeed;
+            transform.Rotate(Vector3.up * mouseX);
         }
 
         private void OnJump(InputAction.CallbackContext context)
