@@ -24,13 +24,5 @@ namespace TT
                 SceneManager.LoadScene("Scenes/loseScene");
             }
         }
-
-        private void Update()
-        {
-            if (_enemy is null)
-            {
-                SceneManager.LoadScene("Scenes/WinScene");
-            }
-        }
     }
 }
