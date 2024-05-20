@@ -28,6 +28,7 @@ namespace TT
                 Destroy(_playerPosition.gameObject);
                 _playerHp.PlayerHp(5f);
                 await UniTask.Delay(300);
+                SceneManager.LoadScene("Scenes/loseScene");
             }
         }
     }

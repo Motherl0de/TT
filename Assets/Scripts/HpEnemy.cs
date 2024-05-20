@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TT
@@ -27,10 +26,6 @@ namespace TT
             {
                 _sliderHp.value = 0f;
                 Destroy(gameObject);
-                // if (_sliderHp.value == 0f)
-                // {
-                //     SceneManager.LoadScene("Scenes/WinScene");
-                // }
                 PlayerPrefs.DeleteKey("HEnemy");
             }
         }

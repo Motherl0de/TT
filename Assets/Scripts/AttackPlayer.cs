@@ -1,7 +1,4 @@
-using System;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TT
 {
@@ -21,7 +18,6 @@ namespace TT
             if (_playerHp <= 0)
             {
                 Destroy(gameObject);
-                SceneManager.LoadScene("Scenes/loseScene");
             }
         }
     }
