@@ -1,4 +1,7 @@
+using System;
+using TT.Input;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TT
 {
@@ -7,16 +10,26 @@ namespace TT
         private bool _isActive;
         private PointEffect _pointer;
         private ParticleSystem _partical;
+        [SerializeField] private InputAction _inputs;
         private ParticleSystem Partical => _partical ??= GetComponentInChildren<ParticleSystem>();
         private PointEffect Pointer => _pointer ??= GetComponentInChildren<PointEffect>();
 
-        void FixedUpdate()
+        private void OnEnable()
         {
-            if (UnityEngine.Input.GetMouseButton(0))
-            {
-                AimMouse();
-                Partical.Play();
-            }
+            _inputs.Enable();
+            _inputs.performed += Attack;
+        }
+
+        private void Attack(InputAction.CallbackContext _)
+        {
+            AimMouse();
+            Partical.Play();
+        }
+
+        private void OnDisable()
+        {
+            _inputs.Disable();
+            _inputs.performed -= Attack;
         }
 
         private void AimMouse()

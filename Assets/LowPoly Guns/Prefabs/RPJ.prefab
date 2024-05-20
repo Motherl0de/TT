@@ -70,6 +70,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16244b07b1717524485c55215f6eafc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputs:
+    m_Name: Inputs
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: c6095a2f-a4ce-4d40-b2c4-b9a721d6fa96
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9594e941-46b9-499e-b543-37a12aac82bc
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Inputs
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1 &464400116022313441
 GameObject:
   m_ObjectHideFlags: 0

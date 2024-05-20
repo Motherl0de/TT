@@ -165,6 +165,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16244b07b1717524485c55215f6eafc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputs:
+    m_Name: Inputs
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 7f632278-3028-4b88-9e6f-21d94b91f38e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: a1848cbd-8462-434e-942c-40bd053d19a3
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Inputs
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1001 &916510391282793253
 PrefabInstance:
   m_ObjectHideFlags: 0

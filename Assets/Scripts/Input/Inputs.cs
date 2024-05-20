@@ -210,24 +210,24 @@ namespace TT.Input
             ""id"": ""162e1a26-6ad6-4fd9-9a9c-26133b7b6af7"",
             ""actions"": [
                 {
-                    ""name"": ""MouseAim"",
-                    ""type"": ""Value"",
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
                     ""id"": ""8fc42089-c5dc-4fd9-8a29-9b1c8c6d5902"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""560e0406-b059-49a9-9dc5-2037800b606d"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""7da17039-079b-40dd-83c0-fc091d1b876e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseAim"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -248,7 +248,7 @@ namespace TT.Input
             m_Inventory_Item3 = m_Inventory.FindAction("Item3", throwIfNotFound: true);
             // Aim
             m_Aim = asset.FindActionMap("Aim", throwIfNotFound: true);
-            m_Aim_MouseAim = m_Aim.FindAction("MouseAim", throwIfNotFound: true);
+            m_Aim_Shoot = m_Aim.FindAction("Shoot", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -434,12 +434,12 @@ namespace TT.Input
         // Aim
         private readonly InputActionMap m_Aim;
         private List<IAimActions> m_AimActionsCallbackInterfaces = new List<IAimActions>();
-        private readonly InputAction m_Aim_MouseAim;
+        private readonly InputAction m_Aim_Shoot;
         public struct AimActions
         {
             private @Inputs m_Wrapper;
             public AimActions(@Inputs wrapper) { m_Wrapper = wrapper; }
-            public InputAction @MouseAim => m_Wrapper.m_Aim_MouseAim;
+            public InputAction @Shoot => m_Wrapper.m_Aim_Shoot;
             public InputActionMap Get() { return m_Wrapper.m_Aim; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -449,16 +449,16 @@ namespace TT.Input
             {
                 if (instance == null || m_Wrapper.m_AimActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_AimActionsCallbackInterfaces.Add(instance);
-                @MouseAim.started += instance.OnMouseAim;
-                @MouseAim.performed += instance.OnMouseAim;
-                @MouseAim.canceled += instance.OnMouseAim;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
 
             private void UnregisterCallbacks(IAimActions instance)
             {
-                @MouseAim.started -= instance.OnMouseAim;
-                @MouseAim.performed -= instance.OnMouseAim;
-                @MouseAim.canceled -= instance.OnMouseAim;
+                @Shoot.started -= instance.OnShoot;
+                @Shoot.performed -= instance.OnShoot;
+                @Shoot.canceled -= instance.OnShoot;
             }
 
             public void RemoveCallbacks(IAimActions instance)
@@ -490,7 +490,7 @@ namespace TT.Input
         }
         public interface IAimActions
         {
-            void OnMouseAim(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
         }
     }
 }
