@@ -11,7 +11,6 @@ namespace TT
         private float _speed = 0.1f;
         private Vector2 _moveVector;
         private Rigidbody _rigidbody;
-        private Quaternion _currentRotation;
         private Vector3 _oldDirection = new Vector3();
         [SerializeField] private float _walkSpeed = 0.1f;
         [SerializeField] private float _runSpeed = 1f;
@@ -27,7 +26,6 @@ namespace TT
         private void OnEnable()
         {
             _inputAction.Enable();
-            _currentRotation = transform.rotation;
             _inputAction.Move.Jump.performed += OnJump;
             _inputAction.Move.Run.performed += OnRun;
             _inputAction.Move.Run.canceled += OnFinishRun;
