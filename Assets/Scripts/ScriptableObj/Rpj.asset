@@ -15,3 +15,5 @@ MonoBehaviour:
   _nameWeapon: RPJ
   _takeDamage: 25
   _prefab: {fileID: 171527776781687000, guid: 67a7e24bd17106e44b96414cadeb93f0, type: 3}
+  _particle: {fileID: 738258274985430121, guid: 0497094e79d21a04294ff9566ae3c0f5,
+    type: 3}

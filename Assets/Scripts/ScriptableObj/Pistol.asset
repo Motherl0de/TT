@@ -15,3 +15,5 @@ MonoBehaviour:
   _nameWeapon: Pistol
   _takeDamage: 3
   _prefab: {fileID: 1843527494584791108, guid: f962cd2cebf419447bb0f4b333177cf0, type: 3}
+  _particle: {fileID: 738258274985430121, guid: 0497094e79d21a04294ff9566ae3c0f5,
+    type: 3}
