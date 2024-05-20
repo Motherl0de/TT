@@ -8,7 +8,6 @@ namespace TT
     public sealed class MoveEnemy : MonoBehaviour
     {
         private Transform _playerPosition;
-        private AttackPlayer _playerHp;
 
         private void Start()
         {
@@ -21,13 +20,11 @@ namespace TT
             transform.LookAt(_playerPosition);
         }
 
-        private async void OnCollisionEnter(Collision other)
+        private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                Destroy(_playerPosition.gameObject);
-                _playerHp.PlayerHp(5f);
-                await UniTask.Delay(300);
+                Destroy(other.gameObject);
                 SceneManager.LoadScene("Scenes/loseScene");
             }
         }
