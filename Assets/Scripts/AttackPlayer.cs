@@ -25,15 +25,11 @@ namespace TT
             }
         }
 
-        private void OnCollisionEnter([NotNull] Collision other)
+        private void Update()
         {
-            if (other.gameObject.CompareTag("Enemy"))
+            if (_enemy is null)
             {
-                _enemy.Damage(25f);
-                if (_enemy is null)
-                {
-                    SceneManager.LoadScene("Scenes/WinScene");
-                }
+                SceneManager.LoadScene("Scenes/WinScene");
             }
         }
     }
