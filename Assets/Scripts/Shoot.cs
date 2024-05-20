@@ -6,7 +6,8 @@ namespace TT
     {
         private bool _isActive;
         private PointEffect _pointer;
-        [SerializeField]private ParticleSystem _partical;
+        private ParticleSystem _partical;
+        private ParticleSystem Partical => _partical ??= GetComponentInChildren<ParticleSystem>();
         private PointEffect Pointer => _pointer ??= GetComponentInChildren<PointEffect>();
 
         void FixedUpdate()
@@ -14,7 +15,7 @@ namespace TT
             if (UnityEngine.Input.GetMouseButton(0))
             {
                 AimMouse();
-                _partical.Play();
+                Partical.Play();
             }
         }
 
