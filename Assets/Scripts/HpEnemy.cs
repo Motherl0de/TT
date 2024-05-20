@@ -6,33 +6,33 @@ namespace TT
 {
     public sealed class HpEnemy : MonoBehaviour
     {
-        private float _hpEnemy = 100f;
+        private float HEnemy = 100f;
         [SerializeField] private Slider _sliderHp;
 
         private void Start()
         {
-            if (PlayerPrefs.GetFloat("_hpEnemy") <= 0)
+            if (PlayerPrefs.HasKey("HEnemy") && HEnemy > 0)
             {
-                _hpEnemy = PlayerPrefs.GetFloat("_hpEnemy");
+                HEnemy = PlayerPrefs.GetFloat("HEnemy");
             }
-            else { _hpEnemy = 100f; }
-            PlayerPrefs.Save();
+            else { HEnemy = 100f; }
         }
 
         public void Damage(float damage)
         {
-            _hpEnemy -= damage;
-            PlayerPrefs.SetFloat("_hpEnemy",_hpEnemy - damage);
-            if (_hpEnemy <= 0)
+            HEnemy -= damage;
+            PlayerPrefs.SetFloat("HEnemy",HEnemy);
+            if (HEnemy <= 0)
             {
                 _sliderHp.value = 0f;
                 Destroy(gameObject);
+                PlayerPrefs.DeleteKey("HEnemy");
             }
         }
 
         private void FixedUpdate()
         {
-            _sliderHp.value = _hpEnemy;
+            _sliderHp.value = HEnemy;
         }
     }
 }
