@@ -204,6 +204,34 @@ namespace TT.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Aim"",
+            ""id"": ""162e1a26-6ad6-4fd9-9a9c-26133b7b6af7"",
+            ""actions"": [
+                {
+                    ""name"": ""MouseAim"",
+                    ""type"": ""Value"",
+                    ""id"": ""8fc42089-c5dc-4fd9-8a29-9b1c8c6d5902"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""560e0406-b059-49a9-9dc5-2037800b606d"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseAim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -218,6 +246,9 @@ namespace TT.Input
             m_Inventory_Item1 = m_Inventory.FindAction("Item1", throwIfNotFound: true);
             m_Inventory_Item2 = m_Inventory.FindAction("Item2", throwIfNotFound: true);
             m_Inventory_Item3 = m_Inventory.FindAction("Item3", throwIfNotFound: true);
+            // Aim
+            m_Aim = asset.FindActionMap("Aim", throwIfNotFound: true);
+            m_Aim_MouseAim = m_Aim.FindAction("MouseAim", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -399,6 +430,52 @@ namespace TT.Input
             }
         }
         public InventoryActions @Inventory => new InventoryActions(this);
+
+        // Aim
+        private readonly InputActionMap m_Aim;
+        private List<IAimActions> m_AimActionsCallbackInterfaces = new List<IAimActions>();
+        private readonly InputAction m_Aim_MouseAim;
+        public struct AimActions
+        {
+            private @Inputs m_Wrapper;
+            public AimActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+            public InputAction @MouseAim => m_Wrapper.m_Aim_MouseAim;
+            public InputActionMap Get() { return m_Wrapper.m_Aim; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(AimActions set) { return set.Get(); }
+            public void AddCallbacks(IAimActions instance)
+            {
+                if (instance == null || m_Wrapper.m_AimActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_AimActionsCallbackInterfaces.Add(instance);
+                @MouseAim.started += instance.OnMouseAim;
+                @MouseAim.performed += instance.OnMouseAim;
+                @MouseAim.canceled += instance.OnMouseAim;
+            }
+
+            private void UnregisterCallbacks(IAimActions instance)
+            {
+                @MouseAim.started -= instance.OnMouseAim;
+                @MouseAim.performed -= instance.OnMouseAim;
+                @MouseAim.canceled -= instance.OnMouseAim;
+            }
+
+            public void RemoveCallbacks(IAimActions instance)
+            {
+                if (m_Wrapper.m_AimActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IAimActions instance)
+            {
+                foreach (var item in m_Wrapper.m_AimActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_AimActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public AimActions @Aim => new AimActions(this);
         public interface IMoveActions
         {
             void OnWASD(InputAction.CallbackContext context);
@@ -410,6 +487,10 @@ namespace TT.Input
             void OnItem1(InputAction.CallbackContext context);
             void OnItem2(InputAction.CallbackContext context);
             void OnItem3(InputAction.CallbackContext context);
+        }
+        public interface IAimActions
+        {
+            void OnMouseAim(InputAction.CallbackContext context);
         }
     }
 }

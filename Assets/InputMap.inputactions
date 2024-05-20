@@ -180,6 +180,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Aim",
+            "id": "162e1a26-6ad6-4fd9-9a9c-26133b7b6af7",
+            "actions": [
+                {
+                    "name": "MouseAim",
+                    "type": "Value",
+                    "id": "8fc42089-c5dc-4fd9-8a29-9b1c8c6d5902",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "560e0406-b059-49a9-9dc5-2037800b606d",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseAim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

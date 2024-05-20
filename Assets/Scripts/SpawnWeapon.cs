@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TT.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,28 +12,45 @@ namespace TT
     {
         [SerializeField] private Weapon _weapon;
         [SerializeField] private InputAction _inputAction;
-        private GameObject _prefab;
-
-        private void Awake()
-        {
-            _prefab = _weapon.Prefab;
-        }
+        [SerializeField] private Transform _transformSpawn;
+        private GameObject _pref;
+        private IEnumerable<SpawnWeapon> Weapons => FindObjectsOfType<SpawnWeapon>().Where(w => w != this);
 
         private void OnEnable()
         {
             _inputAction.Enable();
-            _inputAction.performed += OnDown;
+            _inputAction.performed += SpawnWeapons;
         }
 
-        private void OnDown(InputAction.CallbackContext obj)
+        private void SpawnWeapons(InputAction.CallbackContext obj)
         {
-            Debug.Log(_prefab.name);
+            foreach (var weapon in Weapons)
+            {
+                weapon.Deselect();
+            }
+
+            if (_pref is null)
+            {
+                _pref = Instantiate(_weapon.Prefab, _transformSpawn);
+            }
+            else
+            {
+                _pref.SetActive(true);
+            }
+        }
+
+        private void Deselect()
+        {
+            if (_pref is not null)
+            {
+                _pref.SetActive(false);
+            }
         }
 
         private void OnDisable()
         {
             _inputAction.Disable();
-            _inputAction.performed -= OnDown;
+            _inputAction.performed -= SpawnWeapons;
         }
     }
 }
