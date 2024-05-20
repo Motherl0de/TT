@@ -17,6 +17,7 @@ namespace TT
         private void Update()
         {
             transform.position = Vector3.MoveTowards(transform.position, _playerPosition.position, 2f * Time.deltaTime);
+            transform.LookAt(_playerPosition);
         }
 
         private async void OnCollisionEnter(Collision other)
