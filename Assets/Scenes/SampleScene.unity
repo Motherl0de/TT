@@ -620,13 +620,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179991238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.11, z: -4.27}
+  m_LocalRotation: {x: 0.06209858, y: -0.12839888, z: -0.008586175, w: 0.98973924}
+  m_LocalPosition: {x: 1.2267371, y: 1.8099998, z: -3.7448125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 212045132}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 7.112, y: 9.192, z: -1.048}
 --- !u!1 &187423340
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &187423341
 Transform:
   m_ObjectHideFlags: 0
@@ -653,7 +653,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1518392005}
@@ -673,7 +673,6 @@ GameObject:
   - component: {fileID: 212045134}
   - component: {fileID: 212045133}
   - component: {fileID: 212045137}
-  - component: {fileID: 212045138}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -724,7 +723,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!136 &212045134
 CapsuleCollider:
@@ -811,21 +810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b0031dbfaa81d47a5d87d47ced0f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &212045138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212045131}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16244b07b1717524485c55215f6eafc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointer: {fileID: 125325872}
-  _bulletPref: {fileID: 160938007804218044, guid: 06cd13e0f90f6964ba055e288288f3be,
-    type: 3}
 --- !u!1 &217938418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,7 +1562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16244b07b1717524485c55215f6eafc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointer: {fileID: 701445740}
+  _pointer: {fileID: 125325872}
   _bulletPref: {fileID: 160938007804218044, guid: 06cd13e0f90f6964ba055e288288f3be,
     type: 3}
 --- !u!1 &832575517

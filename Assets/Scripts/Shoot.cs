@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TT
 {
@@ -14,28 +15,22 @@ namespace TT
             AimMouse();
             if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                GameObject bullet = Instantiate(_bulletPref, _pointer.transform.position, transform.rotation);
-                bullet.GetComponent<Rigidbody>().velocity = transform.right * 10f;
+                GameObject bullet = Instantiate(_bulletPref, transform.position, transform.rotation);
+                bullet.GetComponent<Rigidbody>().velocity = transform.right * 20f;
             }
         }
 
         private void AimMouse()
         {
-            Ray ray = Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
+            Ray ray = new Ray(transform.position, transform.forward);//Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
             Debug.DrawRay(_pointer.transform.position, transform.right * 100f, Color.green);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 _pointer.position = hit.point;
             }
-        }
 
-        private void OnCollisionEnter(Collision other)
-        {
-            if (!_isActive) return;
-            _isActive = false;
-            GetComponent<Rigidbody>().useGravity = true;
-            HpEnemy enemy = other.gameObject.GetComponent<HpEnemy>();
+            HpEnemy enemy = hit.collider.gameObject.GetComponent<HpEnemy>();
             if (enemy)
             {
                 enemy.Damage(25f);

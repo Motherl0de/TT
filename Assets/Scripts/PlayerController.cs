@@ -48,8 +48,8 @@ namespace TT
             var direction = new Vector3(_moveVector.x, 0f, _moveVector.y);
             _oldDirection = direction;
             transform.Translate(_oldDirection * _speed);
-            //var mouseX = UnityEngine.Input.GetAxis("Mouse X") * _runSpeed;
-            //transform.Rotate(Vector3.up * mouseX);
+            var mouseX = UnityEngine.Input.GetAxis("Mouse X") * _runSpeed;
+            transform.Rotate(Vector3.up * mouseX);
         }
 
         private void OnJump(InputAction.CallbackContext context)
