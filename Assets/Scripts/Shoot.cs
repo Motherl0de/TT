@@ -17,7 +17,7 @@ namespace TT
         private void OnEnable()
         {
             _inputs.Enable();
-            _inputs.performed += Attack;
+            _inputs.started += Attack;
         }
 
         private void Attack(InputAction.CallbackContext _)
@@ -29,7 +29,7 @@ namespace TT
         private void OnDisable()
         {
             _inputs.Disable();
-            _inputs.performed -= Attack;
+            _inputs.started -= Attack;
         }
 
         private void AimMouse()
@@ -43,7 +43,7 @@ namespace TT
                 HpEnemy enemy = hit.collider.gameObject.GetComponentInChildren<HpEnemy>();
                 if (enemy)
                 {
-                    enemy.Damage(25f);
+                    enemy.Damage(10f);
                 }
             }
         }
