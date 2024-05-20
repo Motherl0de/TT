@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 982941bbb58d60548ae13c1da2341411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &3929905120129806956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,8 +84,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc49fa14e2a0bf742a1a145a46e32d06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _sliderHp: {fileID: 4221475518676856112, guid: dcd622151be91ed4bb565336edf43c90,
     type: 3}
 --- !u!1001 &4187144168616005961
@@ -163,11 +163,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7895393657115491998, guid: 5e10cb482ddf4e1448aba29c794128e2,
         type: 3}
+<<<<<<< HEAD
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: -7895393657115491998, guid: 5e10cb482ddf4e1448aba29c794128e2,
         type: 3}
+=======
+>>>>>>> origin/main
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -188,11 +191,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5e10cb482ddf4e1448aba29c794128e2,
         type: 3}
+<<<<<<< HEAD
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5e10cb482ddf4e1448aba29c794128e2,
         type: 3}
+=======
+>>>>>>> origin/main
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -214,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 6897622227152551676, guid: 5e10cb482ddf4e1448aba29c794128e2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
-      value: 
+      value:
       objectReference: {fileID: 2100000, guid: fdf939727ff54434d8efb4756c1b5414, type: 2}
     - target: {fileID: 7856726035834654846, guid: 5e10cb482ddf4e1448aba29c794128e2,
         type: 3}
@@ -283,7 +289,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
